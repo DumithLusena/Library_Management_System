@@ -1,0 +1,200 @@
+package service.custom.impl;
+
+import db.DBConnection;
+import dto.BookRecordsDTO;
+import entity.*;
+import exceptions.ServiceException;
+import exceptions.custom.BookException;
+import exceptions.custom.BookRecordsException;
+import org.modelmapper.ModelMapper;
+import repository.custom.BookRecordsRepository;
+import repository.custom.BookRepository;
+import repository.custom.MemberRepository;
+import service.custom.BookRecordsService;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+public class BookRecordsServiceIMPL implements BookRecordsService {
+
+    private final ModelMapper mapper;
+    private final BookRecordsRepository bookRecordsRepository;
+    private final BookRepository bookRepository;
+    private final MemberRepository memberRepository;
+
+    public BookRecordsServiceIMPL(ModelMapper mapper, BookRecordsRepository bookRecordsRepository,BookRepository bookRepository,MemberRepository memberRepository) {
+        this.mapper = mapper;
+        this.bookRecordsRepository = bookRecordsRepository;
+        this.bookRepository  = bookRepository;
+        this.memberRepository = memberRepository;
+    }
+
+
+    @Override
+    public boolean add(BookRecordsDTO bookRecordsDTO) throws BookRecordsException {
+        BookRecords bookRecords = this.convertDTOtoEntity(bookRecordsDTO);
+
+        System.out.println("bookRecords service : "+bookRecords);
+
+//        if(bookRecordsDTO.getReturnDate() != null){
+//            LocalDate borrowedDate = bookRecordsDTO.getBorrowedDate();
+//            bookRecordsDTO.setReturnedDate(borrowedDate.plusDays(14));
+//        }
+
+        bookRecordsDTO.setReturnedDate(bookRecordsDTO.getReturnDate());
+        BookRecords bookRecords1 = this.convertDTOtoEntity(bookRecordsDTO);
+
+        try {
+            DBConnection.getInstance().getConnection().setAutoCommit(false);
+
+            validateDates(bookRecordsDTO);
+
+            BookRecords save = bookRecordsRepository.save(bookRecords);
+
+            List<Book> bookList = bookRecordsDTO.getBookIds().stream().map(e -> new Book(save.getId(), e)).collect(Collectors.toList());
+            List<Member> memberList = bookRecordsDTO.getMemberIds().stream().map(e -> new Member(save.getId(),e)).collect(Collectors.toList());
+
+
+            boolean flag = bookRepository.saveList(bookList);
+            if (flag){
+                flag = memberRepository.saveList(memberList);
+                if (flag){
+                    DBConnection.getInstance().getConnection().commit();
+                    return true;
+                }
+            }
+
+            DBConnection.getInstance().getConnection().rollback();
+            return false;
+
+        } catch (SQLException e) {
+            System.out.println("Erro : "+e);
+            handleSQLException(e);
+            return false;
+//            try {
+//                DBConnection.getInstance().getConnection().rollback();
+//            } catch (SQLException ex) {
+//
+//            }
+//             if (((SQLException)e).getErrorCode() == 1406) {
+//                String message = ((SQLException) e).getMessage();
+//                String[] er = message.split("'");
+//                throw new BookRecordsException("Data is To Large For "+er[1]);
+//            }
+//            throw new BookRecordsException("Error Occurred Contact Developer",e);
+        }finally {
+            try {
+                DBConnection.getInstance().getConnection().setAutoCommit(true);
+            } catch (SQLException e) {
+
+            }
+        }
+    }
+
+    private void validateDates(BookRecordsDTO dto) throws BookRecordsException {
+        if (dto.getBorrowedDate() == null){
+            throw new BookRecordsException("Borrowed Date Cannot Be Null");
+        }
+
+        if (dto.getBorrowedDate().isAfter(LocalDate.now())){
+            throw new BookRecordsException("Borrowed Date Cannot Be Future Date");
+        }
+
+        if (dto.getReturnDate().isBefore(dto.getBorrowedDate())){
+            throw new BookRecordsException("Return Date Cannot Be Before Borrowed Date");
+        }
+    }
+
+
+    private void handleSQLException(SQLException e) throws BookRecordsException {
+        try {
+            DBConnection.getInstance().getConnection().rollback();
+        } catch (SQLException ex) {
+            throw new BookRecordsException("Error rolling back transaction", ex);
+        }
+
+        if (e.getErrorCode() == 1406) {
+            String message = e.getMessage();
+            String[] er = message.split("'");
+            throw new BookRecordsException("Data is Too Large For " + er[1]);
+        }
+        throw new BookRecordsException("Error Occurred Contact Developer", e);
+    }
+
+
+
+    public long calculateOverDueDays(BookRecordsDTO dto) {
+        if (dto.getReturnedDate().isAfter(dto.getReturnDate())) {
+            return ChronoUnit.DAYS.between(dto.getReturnDate(), dto.getReturnedDate());
+        }
+        return 0;
+    }
+
+
+
+    @Override
+    public boolean update(BookRecordsDTO bookRecordsDTO) throws BookRecordsException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Integer integer) throws BookRecordsException {
+        return false;
+    }
+
+    @Override
+    public Optional<BookRecordsDTO> search(Integer integer) throws BookRecordsException {
+        try {
+            Optional<BookRecords> search = bookRecordsRepository.search(integer);
+            if (search.isPresent()){
+                BookRecords bookRecords = search.get();
+                List<Integer> bookIds = bookRepository.getAllIds(integer).stream().map(e -> e.getId()).collect(Collectors.toList());
+                List<String> memberIds = memberRepository.getAllIds(String.valueOf(integer)).stream().map(e -> e.getId()).collect(Collectors.toList());
+                BookRecordsDTO bookRecordsDTO = convertEntityToDTO(bookRecords);
+                bookRecordsDTO.setBookIds(bookIds);
+                bookRecordsDTO.setMemberIds(memberIds);
+                return Optional.of(bookRecordsDTO);
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<BookRecordsDTO> getAll() throws BookRecordsException {
+        try {
+            List<BookRecords> all = bookRecordsRepository.getAll();
+            if (all.isEmpty()){
+                throw new BookRecordsException("No Book Records Found");
+            }
+            List<BookRecordsDTO> bookRecordsDTOS = new ArrayList<>();
+            for (BookRecords bookRecords : all) {
+                BookRecordsDTO bookRecordsDTO = convertEntityToDTO(bookRecords);
+                bookRecordsDTO.setBookIds(bookRepository.getAllIds(bookRecords.getId()).stream().map(e -> e.getId()).collect(Collectors.toList()));
+                bookRecordsDTO.setMemberIds(memberRepository.getAllIds(String.valueOf(bookRecords.getId())).stream().map(e -> e.getId()).collect(Collectors.toList()));
+                bookRecordsDTOS.add(bookRecordsDTO);
+            }
+            return bookRecordsDTOS;
+        } catch (SQLException e) {
+            throw new BookRecordsException("Contact Developer",e);
+        }
+    }
+
+
+    private BookRecords convertDTOtoEntity(BookRecordsDTO bookRecordsDTO){
+       return mapper.map(bookRecordsDTO,BookRecords.class);
+    }
+
+    private BookRecordsDTO convertEntityToDTO(BookRecords bookRecords){
+        return mapper.map(bookRecords,BookRecordsDTO.class);
+    }
+
+
+
+}

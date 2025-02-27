@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="710.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.sub.BorrowBookFormController">
+   <children>
+      <ImageView fitHeight="710.0" fitWidth="808.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/Dashboard%20Background.jpg" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="txtMemberId" focusColor="BLACK" layoutX="75.0" layoutY="57.0" onAction="#txtMemberIdOnAction" prefHeight="26.0" prefWidth="199.0" promptText="ID" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK" />
+      <Label layoutX="76.0" layoutY="37.0" styleClass="textLabel" stylesheets="@../../css/style.css" text="Member ID " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <JFXButton buttonType="RAISED" layoutX="311.0" layoutY="628.0" onAction="#btnConfirmOnAction" prefHeight="45.0" prefWidth="186.0" style="-fx-background-color: #222f3e;" text="Confirm" textFill="#dfe4ea">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="tblCart" layoutX="35.0" layoutY="376.0" onMouseClicked="#tblDetailOnMouseClick" prefHeight="242.0" prefWidth="739.0" stylesheets="@../../css/style.css">
+         <columns>
+            <TableColumn fx:id="colRecordID" prefWidth="94.0" text="Record ID" />
+            <TableColumn fx:id="colBookID" prefWidth="158.0" text="Book ID" />
+            <TableColumn fx:id="colMemberID" prefWidth="181.0" text="Member ID" />
+            <TableColumn fx:id="colBorrowDate" prefWidth="157.0" text="Borrow Date" />
+            <TableColumn fx:id="colReturnDate" prefWidth="148.0" text="Return Date" />
+         </columns>
+      </TableView>
+      <JFXTextField fx:id="txtMemberName" editable="false" focusColor="BLACK" layoutX="305.0" layoutY="56.0" prefHeight="26.0" prefWidth="199.0" promptText="Name" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK" />
+      <Label layoutX="306.0" layoutY="36.0" styleClass="textLabel" stylesheets="@../../css/style.css" text="Member Name " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtMemberAddress" editable="false" focusColor="BLACK" layoutX="535.0" layoutY="56.0" prefHeight="26.0" prefWidth="199.0" promptText="Address" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK" />
+      <Label layoutX="535.0" layoutY="36.0" styleClass="textLabel" stylesheets="@../../css/style.css" text="Member Address " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtMemberContact" editable="false" focusColor="BLACK" layoutX="75.0" layoutY="118.0" prefHeight="26.0" prefWidth="199.0" promptText="Contact" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK" />
+      <Label layoutX="75.0" layoutY="98.0" styleClass="textLabel" stylesheets="@../../css/style.css" text="Member Contact" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtMemberEmail" editable="false" focusColor="BLACK" layoutX="305.0" layoutY="118.0" prefHeight="26.0" prefWidth="199.0" promptText="Email" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK" />
+      <Label layoutX="305.0" layoutY="98.0" styleClass="textLabel" stylesheets="@../../css/style.css" text="Member Email" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Separator layoutX="35.0" layoutY="167.0" prefHeight="17.0" prefWidth="739.0" />
+      <JFXTextField fx:id="txtBookId" focusColor="BLACK" layoutX="75.0" layoutY="212.0" onAction="#txtBookIdOnAction" prefHeight="26.0" prefWidth="199.0" promptText="ID" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK" />
+      <Label layoutX="76.0" layoutY="192.0" styleClass="textLabel" stylesheets="@../../css/style.css" text="Book ID" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtBookISBN" editable="false" focusColor="BLACK" layoutX="305.0" layoutY="211.0" prefHeight="26.0" prefWidth="199.0" promptText="ISBN" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK" />
+      <Label layoutX="306.0" layoutY="191.0" styleClass="textLabel" stylesheets="@../../css/style.css" text="Book ISBN" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtBookName" editable="false" focusColor="BLACK" layoutX="535.0" layoutY="211.0" prefHeight="26.0" prefWidth="199.0" promptText="Name" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK" />
+      <Label layoutX="535.0" layoutY="191.0" styleClass="textLabel" stylesheets="@../../css/style.css" text="Book Name" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtBookCategory" editable="false" focusColor="BLACK" layoutX="75.0" layoutY="273.0" prefHeight="26.0" prefWidth="199.0" promptText="Category" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK" />
+      <Label layoutX="75.0" layoutY="253.0" styleClass="textLabel" stylesheets="@../../css/style.css" text="Book Category" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dpBorrowedDate" layoutX="75.0" layoutY="328.0" prefHeight="25.0" prefWidth="199.0" promptText="Borrowed Date " style="-fx-background-color: #dfe4ea;" />
+      <DatePicker fx:id="dpReturnDate" layoutX="305.0" layoutY="328.0" prefHeight="25.0" prefWidth="199.0" promptText="Return Date " style="-fx-background-color: #dfe4ea;" />
+      <JFXButton buttonType="RAISED" layoutX="552.0" layoutY="322.0" onAction="#btnAddToCartOnAction" prefHeight="37.0" prefWidth="186.0" style="-fx-background-color: #222f3e;" text="Add To Cart" textFill="#dfe4ea">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

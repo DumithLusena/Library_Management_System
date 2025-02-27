@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="708.0" prefWidth="1043.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#40739e" height="710.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="334.0" />
+      <ImageView fitHeight="208.0" fitWidth="212.0" layoutX="63.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logo%20new.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="110.0" layoutY="320.0" text="To the " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="58.0" layoutY="247.0" text="Welcome" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="50.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="426.0" text="Library System!" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="578.0" text="Address : BookLib (PVT) Ltd,Rajagiriya">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="605.0" text="Contact : +94 123 456 789">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="16.0" layoutY="632.0" text="Email : booklib@sample.com ">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="375.0" text="BookLib" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font>
+      </Label>
+      <Separator layoutX="7.0" layoutY="545.0" prefHeight="17.0" prefWidth="320.0" />
+      <AnchorPane fx:id="loadLoginFormContent" layoutX="334.0" prefHeight="710.0" prefWidth="743.0">
+         <children>
+            <ImageView fitHeight="710.0" fitWidth="743.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Login%20Background.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="288.0" layoutY="125.0" text="Login">
+               <font>
+                  <Font name="System Bold" size="64.0" />
+               </font>
+               <textFill>
+                  <RadialGradient centerX="0.49447513812154703" centerY="0.466824644549763" radius="0.5">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.23825503355704697">
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.46511294810934684">
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </RadialGradient>
+               </textFill>
+            </Label>
+            <ImageView fitHeight="62.0" fitWidth="68.0" layoutX="341.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/login%20icon.png" />
+               </image>
+            </ImageView>
+            <JFXTextField fx:id="txtEmail" focusColor="BLACK" layoutX="200.0" layoutY="274.0" prefHeight="33.0" prefWidth="346.0" promptText="email" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXTextField>
+            <JFXPasswordField fx:id="txtPassword" focusColor="BLACK" layoutX="200.0" layoutY="339.0" prefHeight="33.0" prefWidth="346.0" promptText="password" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXCheckBox fx:id="cbShowPassword" checkedColor="BLACK" layoutX="556.0" layoutY="339.0" onAction="#changeVisibilityOnAction" prefHeight="33.0" prefWidth="115.0" text="Show Password" textFill="WHITE" unCheckedColor="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXCheckBox>
+            <JFXButton buttonType="RAISED" layoutX="296.0" layoutY="416.0" onAction="#btnLoginOnAction" prefHeight="44.0" prefWidth="154.0" style="-fx-background-color: #636e72;" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="33.0" fitWidth="31.0" layoutX="400.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Login%20btn.png" />
+               </image>
+            </ImageView>
+            <Hyperlink layoutX="420.0" layoutY="481.0" onAction="#hyperSignUpOnAction" text="Sign up">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Hyperlink>
+            <Label layoutX="281.0" layoutY="484.0" text="Don't have an account ?" textFill="#fffafa">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

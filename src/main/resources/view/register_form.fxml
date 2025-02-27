@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="loadRegisterFormContent" prefHeight="693.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterFormController">
+   <children>
+      <ImageView fitHeight="710.0" fitWidth="743.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Login%20Background.jpg" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="txtUserName" focusColor="BLACK" layoutX="199.0" layoutY="213.0" prefHeight="33.0" prefWidth="346.0" promptText="Enter your user name" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtEmail" focusColor="BLACK" layoutX="199.0" layoutY="281.0" prefHeight="33.0" prefWidth="346.0" promptText="Enter your Email " style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="253.0" layoutY="61.0" text="Sign Up">
+         <font>
+            <Font name="System Bold" size="64.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.49447513812154703" centerY="0.466824644549763" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.23825503355704697">
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.46511294810934684">
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <JFXButton buttonType="RAISED" layoutX="295.0" layoutY="505.0" onAction="#btnSignUpOnAction" prefHeight="44.0" prefWidth="154.0" style="-fx-background-color: #636e72;" text="SIGN UP" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="33.0" fitWidth="34.0" layoutX="555.0" layoutY="213.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Register%20User.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="33.0" fitWidth="34.0" layoutX="555.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Register%20Email.png" />
+         </image>
+      </ImageView>
+      <JFXPasswordField fx:id="txtPassword" focusColor="BLACK" layoutX="199.0" layoutY="355.0" prefHeight="33.0" prefWidth="346.0" promptText="Enter your password" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXPasswordField fx:id="txtConfirmPassword" focusColor="BLACK" layoutX="199.0" layoutY="424.0" prefHeight="33.0" prefWidth="346.0" promptText="Confirm your password" style="-fx-background-color: #dfe4ea;" unFocusColor="BLACK">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXCheckBox fx:id="cbShowEnterPassword" checkedColor="BLACK" layoutX="555.0" layoutY="363.0" onAction="#changeVisibilityEnterPasswordOnAction" text="Show Password" textFill="WHITE" unCheckedColor="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXCheckBox>
+      <JFXCheckBox fx:id="cbShowConfirmPassword" checkedColor="BLACK" layoutX="555.0" layoutY="432.0" onAction="#changeVisibilityConfirmPasswordOnAction" text="Show Password" textFill="WHITE" unCheckedColor="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXCheckBox>
+      <Hyperlink layoutX="609.0" layoutY="620.0" onAction="#backToLoginOnAction" prefHeight="33.0" prefWidth="88.0" text="Back To Login" textFill="WHITE" />
+   </children>
+</AnchorPane>
