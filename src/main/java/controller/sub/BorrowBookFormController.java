@@ -1,6 +1,7 @@
 package controller.sub;
 
 import com.jfoenix.controls.JFXTextField;
+import db.DBConnection;
 import dto.*;
 import exceptions.ServiceException;
 import javafx.collections.FXCollections;
@@ -13,6 +14,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.modelmapper.ModelMapper;
 import service.custom.BorrowBookRecordsService;
 import service.custom.BookService;
@@ -21,6 +26,7 @@ import service.custom.MemberService;
 import service.util.*;
 import tm.BorrowBookRecordsTM;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -287,5 +293,22 @@ public class BorrowBookFormController {
             return false;
         }
         return true;
+    }
+
+    public void btnPrintReportOnAction(ActionEvent actionEvent) {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/report/borrow_book_record_report.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance().getConnection());
+
+            String reportPath = "D:/JavaFX ICET/Library Management System Project/Reports/borrow_book_record_report.pdf";
+
+            JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath);
+            JasperViewer.viewReport(jasperPrint,false);
+
+        } catch (JRException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
